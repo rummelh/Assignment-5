@@ -93,11 +93,8 @@ class MinHeap:
         return self._heap.length()
 
     def clear(self) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
-
+        """clears contents of heap"""
+        self._heap = DynamicArray()
 
 def heapsort(da: DynamicArray) -> None:
     """
