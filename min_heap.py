@@ -42,7 +42,7 @@ class MinHeap:
     def add(self, node: object) -> None:
         child_index = self._heap.length()
         self._heap.append(node)
-        #adds new element at the end of the array
+        #adds new element at the end of the arrays
         if self._heap.length() == 1:
             return
         parent_index = (child_index - 1) // 2
