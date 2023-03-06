@@ -54,7 +54,7 @@ class MinHeap:
             if self._heap[parent_index] > self._heap[child_index]:
                 self._heap[child_index], self._heap[parent_index] = self._heap[parent_index], self._heap[child_index]
                 child_index = parent_index
-                parent_index = child_index -1 //2
+                parent_index = (child_index -1) //2
             else:
                 return
 
