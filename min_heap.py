@@ -90,11 +90,11 @@ class MinHeap:
                 return min_val
         if self._heap.length() > 0:
             while start_index < self._heap.length():
-                if left_child >= self._heap.length() or right_child >= self._heap.length():
+                if right_child >= self._heap.length():
                     return min_val
-                #if self._heap[start_index] <= self._heap[right_child] and self._heap[start_index] <= self._heap[left_child]:
-                    #return min_val
-
+                if self._heap[start_index] <= self._heap[right_child] and self._heap[start_index] <= self._heap[left_child]:
+                    #checks to see if value is smaller than left and right child and it returns min_val if it is
+                    return min_val
                 elif self._heap[start_index] > self._heap[left_child] or self._heap[start_index] > self._heap[right_child]:
                     if self._heap[right_child] is None or self._heap[left_child] < self._heap[right_child]:
                         self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
