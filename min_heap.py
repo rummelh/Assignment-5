@@ -101,7 +101,7 @@ class MinHeap:
                         start_index = left_child
                         left_child = 2 * start_index +1
                         right_child = 2* start_index + 2
-                    else:
+                    elif self._heap[left_child] is None or self._heap[right_child] < self._heap[left_child]:
                         self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
                         start_index = right_child
                         left_child = 2 * start_index + 1
