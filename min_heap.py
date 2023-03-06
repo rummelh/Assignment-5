@@ -44,6 +44,7 @@ class MinHeap:
         self._heap.append(node)
         #adds new element at the end of the arrays
         if self._heap.length() == 1:
+            #checks to see if only one item in array
             return
         parent_index = (child_index - 1) // 2
         while child_index >= 0:
@@ -52,7 +53,8 @@ class MinHeap:
             if parent_index >= self._heap.length() or parent_index < 0:
                 return
             if self._heap[parent_index] > self._heap[child_index]:
-                self._heap[child_index], self._heap[parent_index] = self._heap[parent_index], self._heap[child_index]
+                self._heap[child_index] = self._heap[parent_index]
+                self._heap[parent_index]= self._heap[child_index]
                 child_index = parent_index
                 parent_index = (child_index -1) //2
             else:
