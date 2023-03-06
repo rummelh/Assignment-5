@@ -40,6 +40,7 @@ class MinHeap:
         return 'HEAP ' + str(heap_data)
 
     def add(self, node: object) -> None:
+        """adds a value in the proper position"""
         child_index = self._heap.length()
         self._heap.append(node)
         #adds new element at the end of the arrays
@@ -54,8 +55,10 @@ class MinHeap:
                 return
             if self._heap[parent_index] > self._heap[child_index]:
                 self._heap[child_index], self._heap[parent_index] = self._heap[parent_index], self._heap[child_index]
+                #swaps values at child and parent index
                 child_index = parent_index
                 parent_index = (child_index -1) //2
+                #recalculate parent index
             else:
                 return
 
@@ -68,10 +71,10 @@ class MinHeap:
             return False
 
     def get_min(self) -> object:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        """returns smallest value"""
+        if self._heap.length() == 0:
+            raise MinHeapException
+        return self._heap[0]
 
     def remove_min(self) -> object:
         """
