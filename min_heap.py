@@ -89,10 +89,8 @@ class MinHeap:
         pass
 
     def size(self) -> int:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        """returns size of heap"""
+        return self._heap.length()
 
     def clear(self) -> None:
         """
