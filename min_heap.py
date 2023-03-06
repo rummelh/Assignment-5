@@ -85,7 +85,7 @@ class MinHeap:
         left_child = 2*start_index +1
         right_child = 2*start_index +2
         if self._heap.length() ==2:
-            if self._heap[0] > self._heap[1]:
+            if self._heap[0] >= self._heap[1]:
                 self._heap[0],self._heap[1] = self._heap[1], self._heap[0]
                 return min_val
         if self._heap.length() > 0:
