@@ -77,10 +77,33 @@ class MinHeap:
         return self._heap[0]
 
     def remove_min(self) -> object:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        min_val = self.get_min()
+        start_index = 0
+        last_element = self._heap[self._heap.length()-1]
+        self._heap[start_index] = last_element
+        self._heap.remove_at_index(self._heap.length()-1)
+        left_child = 2*start_index +1
+        right_child = 2*start_index +2
+        if self._heap.length() > 1:
+            while start_index < self._heap.length():
+                if left_child >= self._heap.length() or right_child >= self._heap.length():
+                    return min_val
+                if self._heap[start_index] >= self._heap[right_child] and self._heap[start_index] >= self._heap[left_child]:
+                    return min_val
+                elif self._heap[start_index] < self._heap[left_child] or self._heap[start_index] < self._heap[right_child]:
+                    if self._heap[right_child] is None or self._heap[left_child] <= self._heap[right_child]:
+                        self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
+                        start_index = left_child
+                        left_child = 2 * start_index +1
+                        right_child = 2* start_index + 2
+                    else:
+                        self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
+                        start_index = right_child
+                        left_child = 2 * start_index + 1
+                        right_child = 2 * start_index + 2
+        return min_val
+
+
 
     def build_heap(self, da: DynamicArray) -> None:
         """
