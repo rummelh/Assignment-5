@@ -96,12 +96,12 @@ class MinHeap:
                     #checks to see if value is smaller than left and right child and it returns min_val if it is
                     return min_val
                 elif self._heap[start_index] > self._heap[left_child] or self._heap[start_index] > self._heap[right_child]:
-                    if self._heap[right_child] is None or self._heap[left_child] < self._heap[right_child]:
+                    if self._heap[right_child] is None or self._heap[left_child] <= self._heap[right_child]:
                         self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
                         start_index = left_child
                         left_child = 2 * start_index +1
                         right_child = 2* start_index + 2
-                    elif self._heap[left_child] is None or self._heap[right_child] < self._heap[left_child]:
+                    elif self._heap[left_child] is None or self._heap[right_child] <= self._heap[left_child]:
                         self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
                         start_index = right_child
                         left_child = 2 * start_index + 1
@@ -111,10 +111,10 @@ class MinHeap:
 
 
     def build_heap(self, da: DynamicArray) -> None:
-        """
-        TODO: Write this implementation
-        """
-        pass
+        index = (da.length()-1) // 2
+        while index >= 0:
+            _percolate_down(da, index)
+            index -= 1
 
     def size(self) -> int:
         """returns size of heap"""
@@ -136,10 +136,25 @@ def heapsort(da: DynamicArray) -> None:
 # this from inside the MinHeap class. You may edit the function definition.  #
 
 def _percolate_down(da: DynamicArray, parent: int) -> None:
-    """
-    TODO: Write your implementation
-    """
-    pass
+    left_index = (2 * parent) + 1
+    right_index = (2 * parent) +2
+    parent_index = parent
+    while parent_index * 2 <= da.length():
+        if right_index or left_index>= da.length():
+            return
+        if da[left_index] < da[parent_index] or da[right_index] < da[parent_index]:
+            if da[right_index] is None or da[left_index] <= da[right_index]:
+                da[left_index], da[parent_index] = da[parent_index], da[left_index]
+                parent_index = left_index
+                left_index = (2 * parent) + 1
+                right_index = (2 * parent) + 2
+            elif da[left_index] is None or da[right_index] < da[left_index]:
+                da[right_index], da[parent_index] = da[parent_index], da[right_index]
+                parent_index = right_index
+                left_index = (2 * parent) + 1
+                right_index = (2 * parent) + 2
+            else:
+                return
 
 
 # ------------------- BASIC TESTING -----------------------------------------
