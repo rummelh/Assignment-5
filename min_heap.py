@@ -49,7 +49,7 @@ class MinHeap:
         while child_index >= 0:
             if child_index >= self._heap.length():
                 return
-            if parent_index >= self._heap.length() or parent_index < 0:
+            if parent_index >= self._heap.length():
                 return
             if self._heap[parent_index] > self._heap[child_index]:
                 self._heap[child_index], self._heap[parent_index] = self._heap[parent_index], self._heap[child_index]
