@@ -111,10 +111,12 @@ class MinHeap:
 
 
     def build_heap(self, da: DynamicArray) -> None:
+        copy = da
         index = (da.length()-1) // 2
         while index >= 0:
-            _percolate_down(da, index)
+            _percolate_down(copy, index)
             index -= 1
+        self._heap = copy
 
     def size(self) -> int:
         """returns size of heap"""
@@ -139,22 +141,25 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
     left_index = (2 * parent) + 1
     right_index = (2 * parent) +2
     parent_index = parent
-    while parent_index * 2 <= da.length():
-        if right_index or left_index>= da.length():
-            return
-        if da[left_index] < da[parent_index] or da[right_index] < da[parent_index]:
-            if da[right_index] is None or da[left_index] <= da[right_index]:
+    while left_index < da.length():
+        if left_index < da.length() and right_index < da.length():
+            if da[left_index] < da[right_index]:
+                min_child = left_index
+            else:
+                min_child = right_index
+            if da[min_child] < da[parent_index]:
+                da[min_child], da[parent_index] = da[parent_index], da[min_child]
+                parent_index = min_child
+                left_index = (2 * parent_index) + 1
+                right_index = (2 * parent_index) + 2
+        if left_index < da.length() and right_index >= da.length():
+            if da[left_index] < da[parent_index]:
                 da[left_index], da[parent_index] = da[parent_index], da[left_index]
                 parent_index = left_index
-                left_index = (2 * parent) + 1
-                right_index = (2 * parent) + 2
-            elif da[left_index] is None or da[right_index] < da[left_index]:
-                da[right_index], da[parent_index] = da[parent_index], da[right_index]
-                parent_index = right_index
-                left_index = (2 * parent) + 1
-                right_index = (2 * parent) + 2
-            else:
-                return
+                left_index = (2 * parent_index) + 1
+                right_index = (2 * parent_index) + 2
+        else:
+            break
 
 
 # ------------------- BASIC TESTING -----------------------------------------
