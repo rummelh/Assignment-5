@@ -108,15 +108,23 @@ class MinHeap:
                         right_child = 2 * start_index + 2
         return min_val
 
-
-
     def build_heap(self, da: DynamicArray) -> None:
-        copy = da
-        index = (da.length()-1) // 2
+        length = da.length()
+        copy = DynamicArray()
+        for i in range(length):
+            copy.append(da[i])
+        index = (length-1) //2
         while index >= 0:
             _percolate_down(copy, index)
-            index -= 1
+            index -=1
         self._heap = copy
+
+        #copy = da
+        #index = (da.length()-1) // 2
+        #while index >= 0:
+            #_percolate_down(copy, index)
+            #index -= 1
+        #self._heap = copy
 
     def size(self) -> int:
         """returns size of heap"""
