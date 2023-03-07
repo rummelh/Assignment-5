@@ -119,6 +119,7 @@ class MinHeap:
             index -=1
         self._heap = copy
 
+
         #copy = da
         #index = (da.length()-1) // 2
         #while index >= 0:
