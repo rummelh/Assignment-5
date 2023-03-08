@@ -77,6 +77,7 @@ class MinHeap:
         return self._heap[0]
 
     def remove_min(self) -> object:
+        """removes the minimum value from the heap"""
         min_val = self.get_min()
         start_index = 0
         last_element = self._heap[self._heap.length()-1]
@@ -109,17 +110,20 @@ class MinHeap:
         return min_val
 
 
-    def build_heap(self, da: DynamicArray) -> None:
-        length = da.length()
-        copy = DynamicArray()
-        for i in range(length):
-            copy.append(da[i])
-        index = (length-1) //2
-        while index >= 0:
-            _percolate_down(copy, index)
-            index -=1
-        self._heap = copy
-        pass
+    #def build_heap(self, da: DynamicArray) -> None:
+    #    """builds heap"""
+    #    length = da.length()
+    #    copy = DynamicArray()
+    #    for i in range(length):
+    #        """adds all values of da to copy array"""
+    #        copy.append(da[i])
+    #    index = (length-1) //2
+    #    while index >= 0:
+    #        """works from non-leaf nodes backwards"""
+    #        _percolate_down(copy, index)
+    #        index -=1
+    #   self._heap = copy
+
 
     def size(self) -> int:
         """returns size of heap"""
@@ -141,21 +145,27 @@ def heapsort(da: DynamicArray) -> None:
 # this from inside the MinHeap class. You may edit the function definition.  #
 
 def _percolate_down(da: DynamicArray, parent: int) -> None:
+    """percolates down tree"""
     left_index = (2 * parent) + 1
     right_index = (2 * parent) +2
     parent_index = parent
     while left_index < da.length():
+        #checks to make sure not a leaf node
         if left_index < da.length() and right_index < da.length():
+            #makes sure both indexes are valid
             if da[left_index] < da[right_index]:
+                #figures out which index should be the candidate for flipping
                 min_child = left_index
             else:
                 min_child = right_index
             if da[min_child] < da[parent_index]:
+                #checks to make sure the min child is smaller than the parent
                 da[min_child], da[parent_index] = da[parent_index], da[min_child]
                 parent_index = min_child
                 left_index = (2 * parent_index) + 1
                 right_index = (2 * parent_index) + 2
             elif da[min_child] >= da[parent_index]:
+                #need this to make sure exiting if parent is in correct position
                 return
         if left_index < da.length() and right_index >= da.length():
             if da[left_index] < da[parent_index]:
@@ -163,8 +173,6 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
                 parent_index = left_index
                 left_index = (2 * parent_index) + 1
                 right_index = (2 * parent_index) + 2
-        #else:
-            #return
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -211,11 +219,6 @@ if __name__ == '__main__':
         print(h, end=' ')
         print(h.remove_min())
 
-    print("my heap test")
-    da = DynamicArray([89958, -20588, 68338, -25703, -33182])
-    h = MinHeap(['zebra', 'apply'])
-    h.build_heap(da)
-    print(h)
 
     print("\nPDF - build_heap example 1")
     print("--------------------------")
