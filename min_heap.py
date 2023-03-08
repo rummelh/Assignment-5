@@ -85,32 +85,6 @@ class MinHeap:
         self._heap.remove_at_index(self._heap.length()-1)
         _percolate_down(self._heap,0)
         return min_val
-        #left_child = 2*start_index +1
-        #right_child = 2*start_index +2
-        #if self._heap.length() ==2:
-            #if self._heap[0] >= self._heap[1]:
-                #self._heap[0],self._heap[1] = self._heap[1], self._heap[0]
-                #return min_val
-        #if self._heap.length() > 0:
-            #while start_index < self._heap.length():
-                #if right_child > self._heap.length():
-                    #return min_val
-                #if self._heap[start_index] <= self._heap[right_child] and self._heap[start_index] <= self._heap[left_child]:
-                    #checks to see if value is smaller than left and right child and it returns min_val if it is
-                    #return min_val
-                #elif self._heap[start_index] > self._heap[left_child] or self._heap[start_index] > self._heap[right_child]:
-                    #if self._heap[right_child] is None or self._heap[left_child] <= self._heap[right_child]:
-                        #self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
-                        #start_index = left_child
-                        #left_child = 2 * start_index +1
-                        #right_child = 2* start_index + 2
-                    #elif self._heap[left_child] is None or self._heap[right_child] <= self._heap[left_child]:
-                        #self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
-                        #start_index = right_child
-                        #left_child = 2 * start_index + 1
-                        #right_child = 2 * start_index + 2
-        #return min_val
-
 
     def build_heap(self, da: DynamicArray) -> None:
         #self._heap = DynamicArray()
@@ -154,7 +128,9 @@ class MinHeap:
                 elif copy[min_child] >= copy[parent_index]:
                     # need this to make sure exiting if parent is in correct position
                     index -= 1
+        self.clear()
         self._heap = copy
+        #self._heap = copy
 
 
 
@@ -167,14 +143,27 @@ class MinHeap:
         self._heap = DynamicArray()
 
 def heapsort(da: DynamicArray) -> None:
-    new_heap = MinHeap()
-    new_heap.build_heap(da)
-    counter = da.length() -1
+    index = (da.length() //2) - 1
+    while index != 0:
+        _percolate_down(da, index)
+        index -=1
+    counter = da.length()-1
+    keep_count = 0
     while counter > 0:
         da[counter], da[0] = da[0], da[counter]
-        counter -= 1
-        _percolate_down(da, 0)
-    pass
+        _percolate_down_help(da, 0, keep_count)
+        counter -=1
+        keep_count +=1
+
+
+    #new_heap = MinHeap()
+    #new_heap.build_heap(da)
+    #counter = da.length() -1
+    #while counter > 0:
+        #da[counter], da[0] = da[0], da[counter]
+        #counter -= 1
+        #_percolate_down(da, 0)
+    #pass
 
 
 
@@ -188,6 +177,39 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
     right_index = (2 * parent) +2
     parent_index = parent
     while left_index < da.length():
+        #checks to make sure not a leaf node
+        if left_index < da.length() and right_index < da.length():
+            #makes sure both indexes are valid
+            if da[left_index] <= da[right_index]:
+                #figures out which index should be the candidate for flipping
+                min_child = left_index
+            else:
+                min_child = right_index
+            if da[min_child] < da[parent_index]:
+                #checks to make sure the min child is smaller than the parent
+                da[min_child], da[parent_index] = da[parent_index], da[min_child]
+                parent_index = min_child
+                left_index = (2 * parent_index) + 1
+                right_index = (2 * parent_index) + 2
+            elif da[min_child] >= da[parent_index]:
+                #need this to make sure exiting if parent is in correct position
+                return
+        if left_index < da.length() and right_index >= da.length():
+            if da[left_index] < da[parent_index]:
+                da[left_index], da[parent_index] = da[parent_index], da[left_index]
+                parent_index = left_index
+                left_index = (2 * parent_index) + 1
+                right_index = (2 * parent_index) + 2
+            elif da[left_index] >= da [parent_index]:
+                return
+
+
+def _percolate_down_help(da: DynamicArray, parent: int, sub: int) -> None:
+    """percolates down tree"""
+    left_index = (2 * parent) + 1
+    right_index = (2 * parent) +2
+    parent_index = parent
+    while left_index < da.length()-sub:
         #checks to make sure not a leaf node
         if left_index < da.length() and right_index < da.length():
             #makes sure both indexes are valid
