@@ -108,20 +108,24 @@ class MinHeap:
                         left_child = 2 * start_index + 1
                         right_child = 2 * start_index + 2
         return min_val
-        pass
-
 
 
     def build_heap(self, da: DynamicArray) -> None:
-        length = da.length()
-        copy = DynamicArray()
-        for i in range(length):
-            copy.append(da[i])
-        index = (length //2) - 1
-        while index >= 0:
-            _percolate_down(copy, index)
-            index -=1
-        self._heap = copy
+            self._heap = DynamicArray()
+            for i in da:
+                self._heap.append(i)
+            for i in range(self._heap.length()):
+                _percolate_down(self._heap, i)
+
+        #length = da.length()
+        #copy = DynamicArray()
+        #for i in range(length):
+            #copy.append(da[i])
+        #index = (length //2) - 1
+        #while index >= 0:
+            #_percolate_down(copy, index)
+            #index -=1
+        #self._heap = copy
 
         #while index >=0:
             #parent_index = index
