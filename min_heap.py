@@ -118,12 +118,30 @@ class MinHeap:
             """adds all values of da to copy array"""
             copy.append(da[i])
         index = (length //2) - 1
-        #index = (length-1) //2
-        while index >= 0:
-            """works from non-leaf nodes backwards"""
-            _percolate_down(copy, index)
-            index -=1
+        while index >=0:
+            parent_index = index
+            left_index = (2 * index) + 1
+            right_index = (2 * index) + 2
+            if left_index < copy.length() and right_index < copy.length():
+                # makes sure both indexes are valid
+                if copy[left_index] < copy[right_index]:
+                    # figures out which index should be the candidate for flipping
+                    min_child = left_index
+                else:
+                    min_child = right_index
+                if copy[min_child] < copy[parent_index]:
+                    # checks to make sure the min child is smaller than the parent
+                    copy[min_child], copy[parent_index] = copy[parent_index], copy[min_child]
+                    index -= 1
+                elif copy[min_child] >= copy[parent_index]:
+                    # need this to make sure exiting if parent is in correct position
+                    index -= 1
         self._heap = copy
+        #while index >= 0:
+            #"""works from non-leaf nodes backwards"""
+            #_percolate_down(copy, index)
+            #index -=1
+        #self._heap = copy
 
 
     def size(self) -> int:
