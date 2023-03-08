@@ -142,9 +142,8 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
     left_index = (2 * parent) + 1
     right_index = (2 * parent) +2
     parent_index = parent
-
     while left_index < da.length():
-        if left_index < da.length() and right_index <= da.length():
+        if left_index < da.length() and right_index < da.length():
             if da[left_index] < da[right_index]:
                 min_child = left_index
             else:
