@@ -174,6 +174,7 @@ def heapsort(da: DynamicArray) -> None:
         da[counter], da[0] = da[0], da[counter]
         counter -= 1
         _percolate_down(da, 0)
+    pass
 
 
 
