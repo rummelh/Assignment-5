@@ -87,51 +87,15 @@ class MinHeap:
         return min_val
 
     def build_heap(self, da: DynamicArray) -> None:
-        #self._heap = DynamicArray()
-        #for i in da:
-            #self._heap.append(i)
-        #length = da.length()
-        #index = (length//2) -1
-        #while index >= 0:
-            #_percolate_down(self._heap, index)
-            #index -= 1
-
         length = da.length()
         copy = DynamicArray()
         for i in range(length):
             copy.append(da[i])
         index = (length //2) - 1
-        #while index >= 0:
-            #_percolate_down(copy, index)
-            #index -=1
-        #self._heap = copy
-
-        while index >=0:
-            parent_index = index
-            left_index = (2 * index) + 1
-            right_index = (2 * index) + 2
-            if left_index < copy.length() and right_index >= copy.length():
-                if copy[left_index] < copy[parent_index]:
-                    copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
-                    index -= 1
-            elif left_index < copy.length() and right_index < copy.length():
-                 #makes sure both indexes are valid
-                if copy[left_index] < copy[right_index]:
-                    # figures out which index should be the candidate for flipping
-                    min_child = left_index
-                else:
-                    min_child = right_index
-                if copy[min_child] < copy[parent_index]:
-                    # checks to make sure the min child is smaller than the parent
-                    copy[min_child], copy[parent_index] = copy[parent_index], copy[min_child]
-                    index -= 1
-                elif copy[min_child] >= copy[parent_index]:
-                    # need this to make sure exiting if parent is in correct position
-                    index -= 1
-        self.clear()
+        while index >= 0:
+            _percolate_down(copy, index)
+            index -=1
         self._heap = copy
-        #self._heap = copy
-
 
 
     def size(self) -> int:
@@ -154,16 +118,6 @@ def heapsort(da: DynamicArray) -> None:
         _percolate_down_help(da, 0, keep_count)
         counter -=1
         keep_count +=1
-
-
-    #new_heap = MinHeap()
-    #new_heap.build_heap(da)
-    #counter = da.length() -1
-    #while counter > 0:
-        #da[counter], da[0] = da[0], da[counter]
-        #counter -= 1
-        #_percolate_down(da, 0)
-    #pass
 
 
 
