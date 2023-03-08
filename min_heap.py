@@ -122,7 +122,11 @@ class MinHeap:
             parent_index = index
             left_index = (2 * index) + 1
             right_index = (2 * index) + 2
-            if left_index < copy.length() and right_index < copy.length():
+            if left_index < copy.length() and right_index >= copy.length():
+                if copy[left_index] < copy[parent_index]:
+                    copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
+                    index -= 1
+            elif left_index < copy.length() and right_index < copy.length():
                 # makes sure both indexes are valid
                 if copy[left_index] < copy[right_index]:
                     # figures out which index should be the candidate for flipping
@@ -136,10 +140,7 @@ class MinHeap:
                 elif copy[min_child] >= copy[parent_index]:
                     # need this to make sure exiting if parent is in correct position
                     index -= 1
-                if left_index < copy.length() and right_index >= copy.length():
-                    if copy[left_index] < copy[parent_index]:
-                        copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
-                        index -= 1
+
 
         self._heap = copy
         #while index >= 0:
