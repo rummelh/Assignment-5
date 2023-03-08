@@ -83,31 +83,33 @@ class MinHeap:
         last_element = self._heap[self._heap.length()-1]
         self._heap[start_index] = last_element
         self._heap.remove_at_index(self._heap.length()-1)
-        left_child = 2*start_index +1
-        right_child = 2*start_index +2
-        if self._heap.length() ==2:
-            if self._heap[0] >= self._heap[1]:
-                self._heap[0],self._heap[1] = self._heap[1], self._heap[0]
-                return min_val
-        if self._heap.length() > 0:
-            while start_index < self._heap.length():
-                if right_child >= self._heap.length():
-                    return min_val
-                if self._heap[start_index] <= self._heap[right_child] and self._heap[start_index] <= self._heap[left_child]:
-                    #checks to see if value is smaller than left and right child and it returns min_val if it is
-                    return min_val
-                elif self._heap[start_index] > self._heap[left_child] or self._heap[start_index] > self._heap[right_child]:
-                    if self._heap[right_child] is None or self._heap[left_child] <= self._heap[right_child]:
-                        self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
-                        start_index = left_child
-                        left_child = 2 * start_index +1
-                        right_child = 2* start_index + 2
-                    elif self._heap[left_child] is None or self._heap[right_child] <= self._heap[left_child]:
-                        self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
-                        start_index = right_child
-                        left_child = 2 * start_index + 1
-                        right_child = 2 * start_index + 2
+        _percolate_down(self._heap,0)
         return min_val
+        #left_child = 2*start_index +1
+        #right_child = 2*start_index +2
+        #if self._heap.length() ==2:
+            #if self._heap[0] >= self._heap[1]:
+                #self._heap[0],self._heap[1] = self._heap[1], self._heap[0]
+                #return min_val
+        #if self._heap.length() > 0:
+            #while start_index < self._heap.length():
+                #if right_child > self._heap.length():
+                    #return min_val
+                #if self._heap[start_index] <= self._heap[right_child] and self._heap[start_index] <= self._heap[left_child]:
+                    #checks to see if value is smaller than left and right child and it returns min_val if it is
+                    #return min_val
+                #elif self._heap[start_index] > self._heap[left_child] or self._heap[start_index] > self._heap[right_child]:
+                    #if self._heap[right_child] is None or self._heap[left_child] <= self._heap[right_child]:
+                        #self._heap[left_child], self._heap[start_index] = self._heap[start_index], self._heap[left_child]
+                        #start_index = left_child
+                        #left_child = 2 * start_index +1
+                        #right_child = 2* start_index + 2
+                    #elif self._heap[left_child] is None or self._heap[right_child] <= self._heap[left_child]:
+                        #self._heap[right_child], self._heap[start_index] = self._heap[start_index], self._heap[right_child]
+                        #start_index = right_child
+                        #left_child = 2 * start_index + 1
+                        #right_child = 2 * start_index + 2
+        #return min_val
 
 
     def build_heap(self, da: DynamicArray) -> None:
@@ -165,10 +167,14 @@ class MinHeap:
         self._heap = DynamicArray()
 
 def heapsort(da: DynamicArray) -> None:
-    """
-    TODO: Write this implementation
-    """
-    pass
+    new_heap = MinHeap()
+    new_heap.build_heap(da)
+    counter = da.length() -1
+    while counter > 0:
+        da[counter], da[0] = da[0], da[counter]
+        counter -= 1
+        _percolate_down(da, 0)
+
 
 
 # It's highly recommended that you implement the following optional          #
@@ -204,6 +210,8 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
                 parent_index = left_index
                 left_index = (2 * parent_index) + 1
                 right_index = (2 * parent_index) + 2
+            elif da[left_index] >= da [parent_index]:
+                return
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -249,6 +257,12 @@ if __name__ == '__main__':
     while not h.is_empty() and h.is_empty() is not None:
         print(h, end=' ')
         print(h.remove_min())
+
+    print("remove_min my example")
+    h = MinHeap([-88078, -8265, -64532, 80428, 63740, -38410, -6778])
+    print(h, end = '')
+    print(h.remove_min())
+    print(h)
 
     print("my heap test")
     da = DynamicArray([89958, -20588, 68338, -25703, -33182])
