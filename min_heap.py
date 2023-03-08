@@ -111,11 +111,14 @@ class MinHeap:
 
 
     def build_heap(self, da: DynamicArray) -> None:
-            self._heap = DynamicArray()
-            for i in da:
-                self._heap.append(i)
-            for i in range(self._heap.length()):
-                _percolate_down(self._heap, i)
+        self._heap = DynamicArray()
+        for i in da:
+            self._heap.append(i)
+        length = da.length()
+        index = (length//2) -1
+        while index >= 0:
+            _percolate_down(self._heap, index)
+            index -= 1
 
         #length = da.length()
         #copy = DynamicArray()
