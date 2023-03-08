@@ -110,19 +110,19 @@ class MinHeap:
         return min_val
 
 
-    #def build_heap(self, da: DynamicArray) -> None:
-    #    """builds heap"""
-    #    length = da.length()
-    #    copy = DynamicArray()
-    #    for i in range(length):
-    #        """adds all values of da to copy array"""
-    #        copy.append(da[i])
-    #    index = (length-1) //2
-    #    while index >= 0:
-    #        """works from non-leaf nodes backwards"""
-    #        _percolate_down(copy, index)
-    #        index -=1
-    #   self._heap = copy
+    def build_heap(self, da: DynamicArray) -> None:
+        """builds heap"""
+        length = da.length()
+        copy = DynamicArray()
+        for i in range(length):
+            """adds all values of da to copy array"""
+            copy.append(da[i])
+        index = (length-1) //2
+        while index >= 0:
+            """works from non-leaf nodes backwards"""
+            _percolate_down(copy, index)
+            index -=1
+        self._heap = copy
 
 
     def size(self) -> int:
