@@ -136,6 +136,11 @@ class MinHeap:
                 elif copy[min_child] >= copy[parent_index]:
                     # need this to make sure exiting if parent is in correct position
                     index -= 1
+                if left_index < copy.length() and right_index >= copy.length():
+                    if copy[left_index] < copy[parent_index]:
+                        copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
+                        index -= 1
+
         self._heap = copy
         #while index >= 0:
             #"""works from non-leaf nodes backwards"""
