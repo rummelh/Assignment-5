@@ -111,43 +111,40 @@ class MinHeap:
 
 
     def build_heap(self, da: DynamicArray) -> None:
-        """builds heap"""
         length = da.length()
         copy = DynamicArray()
         for i in range(length):
-            """adds all values of da to copy array"""
             copy.append(da[i])
         index = (length //2) - 1
-        while index >=0:
-            parent_index = index
-            left_index = (2 * index) + 1
-            right_index = (2 * index) + 2
-            if left_index < copy.length() and right_index >= copy.length():
-                if copy[left_index] < copy[parent_index]:
-                    copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
-                    index -= 1
-            elif left_index < copy.length() and right_index < copy.length():
-                # makes sure both indexes are valid
-                if copy[left_index] < copy[right_index]:
-                    # figures out which index should be the candidate for flipping
-                    min_child = left_index
-                else:
-                    min_child = right_index
-                if copy[min_child] < copy[parent_index]:
-                    # checks to make sure the min child is smaller than the parent
-                    copy[min_child], copy[parent_index] = copy[parent_index], copy[min_child]
-                    index -= 1
-                elif copy[min_child] >= copy[parent_index]:
-                    # need this to make sure exiting if parent is in correct position
-                    index -= 1
-
-
+        while index >= 0:
+            _percolate_down(copy, index)
+            index -=1
         self._heap = copy
-        #while index >= 0:
-            #"""works from non-leaf nodes backwards"""
-            #_percolate_down(copy, index)
-            #index -=1
+
+        #while index >=0:
+            #parent_index = index
+            #left_index = (2 * index) + 1
+            #right_index = (2 * index) + 2
+            #if left_index < copy.length() and right_index >= copy.length():
+                #if copy[left_index] < copy[parent_index]:
+                    #copy[left_index], copy[parent_index] = copy[parent_index], copy[left_index]
+                    #index -= 1
+            #elif left_index < copy.length() and right_index < copy.length():
+                # makes sure both indexes are valid
+                #if copy[left_index] < copy[right_index]:
+                    # figures out which index should be the candidate for flipping
+                    #min_child = left_index
+                #else:
+                    #min_child = right_index
+                #if copy[min_child] < copy[parent_index]:
+                    # checks to make sure the min child is smaller than the parent
+                    #copy[min_child], copy[parent_index] = copy[parent_index], copy[min_child]
+                    #index -= 1
+                #elif copy[min_child] >= copy[parent_index]:
+                    # need this to make sure exiting if parent is in correct position
+                    #index -= 1
         #self._heap = copy
+
 
 
     def size(self) -> int:
@@ -244,6 +241,11 @@ if __name__ == '__main__':
         print(h, end=' ')
         print(h.remove_min())
 
+    print("my heap test")
+    da = DynamicArray([89958, -20588, 68338, -25703, -33182])
+    h = MinHeap(['zebra', 'apply'])
+    h.build_heap(da)
+    print(h)
 
     print("\nPDF - build_heap example 1")
     print("--------------------------")
