@@ -191,7 +191,7 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
         #checks to make sure not a leaf node
         if left_index < da.length() and right_index < da.length():
             #makes sure both indexes are valid
-            if da[left_index] < da[right_index]:
+            if da[left_index] <= da[right_index]:
                 #figures out which index should be the candidate for flipping
                 min_child = left_index
             else:
@@ -261,6 +261,12 @@ if __name__ == '__main__':
 
     print("remove_min my example")
     h = MinHeap([-88078, -8265, -64532, 80428, 63740, -38410, -6778])
+    print(h, end = '')
+    print(h.remove_min())
+    print(h)
+
+    print("remove_min second example")
+    h = MinHeap([-54585, -24594, -12853, 42294, 42294, 4547, 73951, 98245])
     print(h, end = '')
     print(h.remove_min())
     print(h)
