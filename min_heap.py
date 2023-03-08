@@ -117,7 +117,8 @@ class MinHeap:
         for i in range(length):
             """adds all values of da to copy array"""
             copy.append(da[i])
-        index = (length-1) //2
+        index = (length //2) - 1
+        #index = (length-1) //2
         while index >= 0:
             """works from non-leaf nodes backwards"""
             _percolate_down(copy, index)
