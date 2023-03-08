@@ -153,14 +153,16 @@ def _percolate_down(da: DynamicArray, parent: int) -> None:
                 parent_index = min_child
                 left_index = (2 * parent_index) + 1
                 right_index = (2 * parent_index) + 2
+            elif da[min_child] >= da[parent_index]:
+                return
         if left_index < da.length() and right_index >= da.length():
             if da[left_index] < da[parent_index]:
                 da[left_index], da[parent_index] = da[parent_index], da[left_index]
                 parent_index = left_index
                 left_index = (2 * parent_index) + 1
                 right_index = (2 * parent_index) + 2
-        else:
-            return
+        #else:
+            #return
 
 
 # ------------------- BASIC TESTING -----------------------------------------
@@ -206,6 +208,12 @@ if __name__ == '__main__':
     while not h.is_empty() and h.is_empty() is not None:
         print(h, end=' ')
         print(h.remove_min())
+
+    print("my heap test")
+    da = DynamicArray([89958, -20588, 68338, -25703, -33182])
+    h = MinHeap(['zebra', 'apply'])
+    h.build_heap(da)
+    print(h)
 
     print("\nPDF - build_heap example 1")
     print("--------------------------")
