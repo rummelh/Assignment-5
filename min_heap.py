@@ -107,7 +107,7 @@ class MinHeap:
                         left_child = 2 * start_index + 1
                         right_child = 2 * start_index + 2
         return min_val
-        pass
+
 
     def build_heap(self, da: DynamicArray) -> None:
         length = da.length()
