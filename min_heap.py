@@ -119,6 +119,7 @@ class MinHeap:
             _percolate_down(copy, index)
             index -=1
         self._heap = copy
+        pass
 
     def size(self) -> int:
         """returns size of heap"""
