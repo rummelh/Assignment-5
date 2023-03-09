@@ -3,7 +3,7 @@
 # Course: CS261 - Data Structures
 # Assignment: 5
 # Due Date: 3/6/2023
-# Description:
+# Description: Heap
 
 
 from dynamic_array import *
@@ -78,6 +78,8 @@ class MinHeap:
 
     def remove_min(self) -> object:
         """removes the minimum value from the heap"""
+        if self._heap.length() == 0:
+            raise MinHeapException
         min_val = self.get_min()
         start_index = 0
         last_element = self._heap[self._heap.length()-1]
@@ -87,6 +89,7 @@ class MinHeap:
         return min_val
 
     def build_heap(self, da: DynamicArray) -> None:
+        """builds a heap"""
         length = da.length()
         copy = DynamicArray()
         for i in range(length):
@@ -107,17 +110,19 @@ class MinHeap:
         self._heap = DynamicArray()
 
 def heapsort(da: DynamicArray) -> None:
-    index = (da.length() //2) - 1
-    while index != 0:
-        _percolate_down(da, index)
-        index -=1
+    heap = MinHeap()
+    heap.build_heap(da)
     counter = da.length()-1
     keep_count = 0
     while counter > 0:
         da[counter], da[0] = da[0], da[counter]
+        counter -= 1
+        keep_count += 1
+        if counter == 1:
+            if da[0] > da[1]:
+                break
         _percolate_down_help(da, 0, keep_count)
-        counter -=1
-        keep_count +=1
+
 
 
 
@@ -165,7 +170,7 @@ def _percolate_down_help(da: DynamicArray, parent: int, sub: int) -> None:
     parent_index = parent
     while left_index < da.length()-sub:
         #checks to make sure not a leaf node
-        if left_index < da.length() and right_index < da.length():
+        if left_index < da.length()-sub and right_index < da.length()-sub:
             #makes sure both indexes are valid
             if da[left_index] <= da[right_index]:
                 #figures out which index should be the candidate for flipping
@@ -181,7 +186,7 @@ def _percolate_down_help(da: DynamicArray, parent: int, sub: int) -> None:
             elif da[min_child] >= da[parent_index]:
                 #need this to make sure exiting if parent is in correct position
                 return
-        if left_index < da.length() and right_index >= da.length():
+        if left_index < da.length()-sub and right_index >= da.length()-sub:
             if da[left_index] < da[parent_index]:
                 da[left_index], da[parent_index] = da[parent_index], da[left_index]
                 parent_index = left_index
